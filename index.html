@@ -24,8 +24,11 @@
               v-model="searchQuery"
               placeholder="Search products..."
             />
-            <button><i class="fa-solid fa-search"></i></button>
+            <button v-on:click="filterProducts">
+              <i class="fa-solid fa-search"></i>
+            </button>
           </div>
+
           <button
             class="checkout-button"
             v-if="cartitemcount > 0"
@@ -392,6 +395,11 @@
               console.error("Error fetching activities:", error);
             }
           },
+
+          filterProducts() {
+            console.log("Search triggered for query:", this.searchQuery);
+          },
+
           canAddToCart(product) {
             return product.AvailableInventory > 0;
           },
