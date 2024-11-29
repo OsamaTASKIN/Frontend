@@ -427,53 +427,7 @@
           toggleCheckout() {
             this.checkoutPage = !this.checkoutPage;
           },
-          async submitOrder() {
-            try {
-              const response = await fetch(
-                "http://localhost:3000/place-order",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    firstName: this.order.firstName,
-                    lastName: this.order.lastName,
-                    address: this.order.address,
-                    city: this.order.city,
-                    state: this.order.state,
-                    zip: this.order.zip,
-                    phone: this.order.phone,
-                    gift: this.order.gift,
-                    method: this.order.method,
-                    cart: this.cart,
-                  }),
-                }
-              );
-
-              const data = await response.json();
-              if (response.ok) {
-                this.showPopup = true;
-                this.popupMessage = "Order placed successfully!";
-                this.cart = []; // Clear the cart after placing the order
-                this.cartitemcount = 0;
-                this.totalPrice = 0;
-              } else {
-                this.showPopup = true;
-                this.popupMessage = "Failed to place order: " + data.msg;
-              }
-            } catch (error) {
-              console.error("Error placing order:", error);
-              this.showPopup = true;
-              this.popupMessage = "Error placing order.";
-            } finally {
-              setTimeout(() => {
-                this.showPopup = false;
-                this.checkoutPage = false;
-              }, 3000);
-            }
-          },
-        },
+     
 
         created() {
           // Fetch data when the component is created
