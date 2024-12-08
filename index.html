@@ -15,7 +15,11 @@
     <div id="app">
       <nav class="navbar">
         <div class="nav-content">
-          <span class="logo-img"><img src="http://localhost:3000/images/logo.png" alt="" /></span>
+          <span class="logo-img"
+            ><img
+              src="https://backend-coursework-2.onrender.com/images/logo.png"
+              alt=""
+          /></span>
           <h1 class="site-name" v-text="sitename"></h1>
 
           <div class="search-bar">
@@ -24,7 +28,7 @@
               v-model="searchQuery"
               placeholder="Search products..."
             />
-            <button v-on:click="filterProducts">
+            <button v-on:click="logSearchActivity">
               <i class="fa-solid fa-search"></i>
             </button>
           </div>
@@ -212,7 +216,8 @@
               subject: "Swimming",
               location: "Dubai",
               price: 100,
-              image: "images/swimming.jpg",
+              image:
+                "https://backend-coursework-2.onrender.com/images/swimming.jpg",
               AvailableInventory: 10,
               rating: 4,
             },
@@ -222,7 +227,8 @@
               subject: "Chess",
               location: "Ajman",
               price: 155,
-              image: "images/chess.jpg",
+              image:
+                "https://backend-coursework-2.onrender.com/images/chess.jpg",
               AvailableInventory: 23,
               rating: 5,
             },
@@ -232,7 +238,8 @@
               subject: "Track",
               location: "Ajman",
               price: 130,
-              image: "images/track.jpg",
+              image:
+                "https://backend-coursework-2.onrender.com/images/track.jpg",
               AvailableInventory: 25,
               rating: 3,
             },
@@ -242,7 +249,7 @@
               subject: "Art",
               location: "Dubai",
               price: 80,
-              image: "images/art.jpg",
+              image: "https://backend-coursework-2.onrender.com/images/art.jpg",
               AvailableInventory: 15,
               rating: 3,
             },
@@ -252,7 +259,8 @@
               subject: "Comics",
               location: "Internet City",
               price: 100,
-              image: "images/comics.jpg",
+              image:
+                "https://backend-coursework-2.onrender.com/images/comics.jpg",
               AvailableInventory: 25,
               rating: 3,
             },
@@ -262,7 +270,8 @@
               subject: "Football",
               location: "Dubai",
               price: 195,
-              image: "images/football.jpg",
+              image:
+                "https://backend-coursework-2.onrender.com/images/football.jpg",
               AvailableInventory: 25,
               rating: 3,
             },
@@ -272,7 +281,8 @@
               subject: "Debate",
               location: "Free Zone",
               price: 130,
-              image: "images/debate.jpg",
+              image:
+                "https://backend-coursework-2.onrender.com/images/debate.jpg",
               AvailableInventory: 18,
               rating: 4,
             },
@@ -282,7 +292,8 @@
               subject: "Robotics",
               location: "Sharjah",
               price: 170,
-              image: "images/robotics.jpg",
+              image:
+                "https://backend-coursework-2.onrender.com/images/robotics.jpg",
               AvailableInventory: 10,
               rating: 5,
             },
@@ -292,7 +303,8 @@
               subject: "Drama",
               location: "Dubai",
               price: 150,
-              image: "images/Drama.jpg",
+              image:
+                "https://backend-coursework-2.onrender.com/images/Drama.jpg",
               AvailableInventory: 8,
               rating: 5,
             },
@@ -302,7 +314,8 @@
               subject: "Dance",
               location: "Abu Dhabi",
               price: 120,
-              image: "images/dance.jpg",
+              image:
+                "https://backend-coursework-2.onrender.com/images/dance.jpg",
               AvailableInventory: 5,
               rating: 4,
             },
@@ -387,7 +400,7 @@
           async fetchActivities() {
             try {
               const response = await fetch(
-                "http://localhost:3000/collection/lessons"
+                "https://backend-coursework-2.onrender.com/collection/lessons"
               );
               const data = await response.json();
               this.activities = data.activities || [];
@@ -396,8 +409,38 @@
             }
           },
 
-          filterProducts() {
-            console.log("Search triggered for query:", this.searchQuery);
+          // Log search activity to the backend
+          logSearchActivity() {
+            const query = this.searchQuery.trim();
+            if (query) {
+              console.log("Search query:", query); // Debugging line
+              fetch(
+                `http://localhost:3000/log-search?query=${encodeURIComponent(
+                  query
+                )}`,
+                {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }
+              )
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error("Failed to fetch search results");
+                  }
+                  return response.json();
+                })
+                .then((data) => {
+                  this.searchResults = data; // Store results locally if needed
+                  console.log("Search results:", data); // Log for debugging
+                })
+                .catch((error) => {
+                  console.error("Error fetching search results:", error);
+                });
+            } else {
+              alert("Please enter a search query.");
+            }
           },
 
           canAddToCart(product) {
@@ -430,7 +473,7 @@
           async submitOrder() {
             try {
               const response = await fetch(
-                "http://localhost:3000/place-order",
+                "https://backend-coursework-2.onrender.com/place-order",
                 {
                   method: "POST",
                   headers: {
