@@ -400,7 +400,7 @@
           async fetchActivities() {
             try {
               const response = await fetch(
-                "https://backend-coursework-2.onrender.com/collection/lessons"
+                "https://backend-coursework-1.onrender.com/collection/lessons"
               );
               const data = await response.json();
               this.activities = data.activities || [];
@@ -415,7 +415,7 @@
             if (query) {
               console.log("Search query:", query); // Debugging line
               fetch(
-                `http://localhost:3000/log-search?query=${encodeURIComponent(
+                `https://backend-coursework-1.onrender.com/log-search?query=${encodeURIComponent(
                   query
                 )}`,
                 {
@@ -473,7 +473,7 @@
           async submitOrder() {
             try {
               const response = await fetch(
-                "https://backend-coursework-2.onrender.com/place-order",
+                "https://backend-coursework-1.onrender.com/place-order",
                 {
                   method: "POST",
                   headers: {
