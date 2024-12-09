@@ -209,117 +209,7 @@
           searchQuery: "",
           sortCategory: "price",
           sortOrder: "asc",
-          products: [
-            {
-              id: 101,
-              title: "Swimming Club",
-              subject: "Swimming",
-              location: "Dubai",
-              price: 100,
-              image:
-                "https://backend-coursework-1.onrender.com/images/swimming.jpg",
-              AvailableInventory: 10,
-              rating: 4,
-            },
-            {
-              id: 102,
-              title: "Chess Club",
-              subject: "Chess",
-              location: "Ajman",
-              price: 155,
-              image:
-                "https://backend-coursework-1.onrender.com/images/chess.jpg",
-              AvailableInventory: 23,
-              rating: 5,
-            },
-            {
-              id: 103,
-              title: "Track And Field",
-              subject: "Track",
-              location: "Ajman",
-              price: 130,
-              image:
-                "https://backend-coursework-1.onrender.com/images/track.jpg",
-              AvailableInventory: 25,
-              rating: 3,
-            },
-            {
-              id: 104,
-              title: "Art Club",
-              subject: "Art",
-              location: "Dubai",
-              price: 80,
-              image: "https://backend-coursework-1.onrender.com/images/art.jpg",
-              AvailableInventory: 15,
-              rating: 3,
-            },
-            {
-              id: 105,
-              title: "Comics Club",
-              subject: "Comics",
-              location: "Internet City",
-              price: 100,
-              image:
-                "https://backend-coursework-1.onrender.com/images/comics.jpg",
-              AvailableInventory: 25,
-              rating: 3,
-            },
-            {
-              id: 106,
-              title: "Football Club",
-              subject: "Football",
-              location: "Dubai",
-              price: 195,
-              image:
-                "https://backend-coursework-1.onrender.com/images/football.jpg",
-              AvailableInventory: 25,
-              rating: 3,
-            },
-            {
-              id: 107,
-              title: "Debate Club",
-              subject: "Debate",
-              location: "Free Zone",
-              price: 130,
-              image:
-                "https://backend-coursework-1.onrender.com/images/debate.jpg",
-              AvailableInventory: 18,
-              rating: 4,
-            },
-            {
-              id: 108,
-              title: "Robotics Club",
-              subject: "Robotics",
-              location: "Sharjah",
-              price: 170,
-              image:
-                "https://backend-coursework-1.onrender.com/images/robotics.jpg",
-              AvailableInventory: 10,
-              rating: 5,
-            },
-            {
-              id: 109,
-              title: "Drama Club",
-              subject: "Drama",
-              location: "Dubai",
-              price: 150,
-              image:
-                "https://backend-coursework-1.onrender.com/images/Drama.jpg",
-              AvailableInventory: 8,
-              rating: 5,
-            },
-            {
-              id: 110,
-              title: "Dance Club",
-              subject: "Dance",
-              location: "Abu Dhabi",
-              price: 120,
-              image:
-                "https://backend-coursework-1.onrender.com/images/dance.jpg",
-              AvailableInventory: 5,
-              rating: 4,
-            },
-          ],
+          products: [],
           cart: [],
           order: {
             firstName: "",
@@ -397,15 +287,18 @@
         },
 
         methods: {
-          async fetchActivities() {
+          async fetchProducts() {
             try {
               const response = await fetch(
-                "https://backend-coursework-1.onrender.com/collection/lessons"
+                "https://backend-coursework-1.onrender.com/collection/lessons" // Replace with the correct endpoint
               );
+              if (!response.ok) {
+                throw new Error("Failed to fetch products");
+              }
               const data = await response.json();
-              this.activities = data.activities || [];
+              this.products = data; // Update the products array with fetched data
             } catch (error) {
-              console.error("Error fetching activities:", error);
+              console.error("Error fetching products:", error);
             }
           },
 
@@ -520,7 +413,7 @@
 
         created() {
           // Fetch data when the component is created
-          this.fetchActivities();
+          this.fetchProducts();
         },
       });
     </script>
